@@ -4,6 +4,8 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
+Streamlit : https://food-delivery-times.streamlit.app/
+
 ## 📋 Deskripsi Proyek
 Proyek ini adalah aplikasi web interaktif menggunakan **Streamlit** untuk menganalisis dan memprediksi skor ulasan (`Weather`) pengantaran makanan berdasarkan dataset `Food_Delivery_Times.csv`.  
 Aplikasi ini dilengkapi dengan fitur Exploratory Data Analysis (EDA), prediksi klasifikasi menggunakan **Random Forest Classifier**, serta evaluasi performa model.
@@ -33,3 +35,12 @@ Pastikan file ini berada di folder yang sama dengan file aplikasi `app.py`.
    ```bash
    git clone https://github.com/tiaradelf/food-delivery-review-prediction.git
    cd food-delivery-review-prediction
+
+## 📞 Contact Me
+Untuk pertanyaan, kolaborasi, atau feedback, silakan hubungi:
+
+LinkedIn: https://www.linkedin.com/in/tiara-delfira/
+
+GitHub: https://github.com/tiaradelf
+
+Email: delfiratiara7@gmail.com
