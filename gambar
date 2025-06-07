@@ -1,0 +1,8 @@
+from PIL import Image
+import streamlit as st
+
+try:
+    image = Image.open("gibli_datascience.png")  # Nama file harus sama
+    st.image(image, caption="Thank you for exploring Data Science!", use_column_width=True)
+except FileNotFoundError:
+    st.warning("Gambar tidak ditemukan. Pastikan 'gibli_datascience.png' ada di folder yang sama dengan file Streamlit.")
