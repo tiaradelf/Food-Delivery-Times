@@ -150,7 +150,7 @@ st.markdown(
     """
     <hr>
     <div style='text-align: center; font-size: 14px; color: gray; margin-top: 10px;'>
-        © 2025 Tiara Delfira - Informatics Engineer & Data Scientist Enthusiast<br>
+        © 2025 Tiara Delfira<br>
         Developed with ❤️ using Streamlit
     </div>
     """, unsafe_allow_html=True
