@@ -1,4 +1,4 @@
-# Food Delivery Review Prediction with Streamlit
+# Food Delivery Prediction with Streamlit
 
 ![Streamlit](https://img.shields.io/badge/Streamlit-App-orange)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
@@ -7,13 +7,12 @@
 Streamlit : https://food-delivery-times.streamlit.app/
 
 ## 📋 Deskripsi Proyek
-Proyek ini adalah aplikasi web interaktif menggunakan **Streamlit** untuk menganalisis dan memprediksi skor ulasan (`Weather`) pengantaran makanan berdasarkan dataset `Food_Delivery_Times.csv`.  
-Aplikasi ini dilengkapi dengan fitur Exploratory Data Analysis (EDA), prediksi klasifikasi menggunakan **Random Forest Classifier**, serta evaluasi performa model.
+Proyek ini adalah aplikasi web interaktif menggunakan **Streamlit** untuk menganalisis dan memprediksi kategori waktu pengiriman (`Cepat` atau `Lama`) pada layanan antar makanan berdasarkan dataset `Food_Delivery_Times.csv`.
+Aplikasi ini dilengkapi dengan fitur Exploratory Data Analysis (EDA) dan Prediksi klasifikasi
 
 ## ⚙️ Fitur Utama
 - **EDA**: Tampilkan ringkasan data, heatmap korelasi, dan visualisasi histogram.
-- **Prediksi**: Input fitur pengantaran makanan untuk memprediksi kategori ulasan menggunakan model Random Forest.
-- **Evaluasi Model**: Menampilkan akurasi dan classification report.
+- **Prediksi**: Input fitur pengantaran makanan untuk memprediksi kategori waktu pengiriman.
 - **Contact & Credits**: Informasi kontak.
 
 ## 🛠️ Teknologi dan Library
