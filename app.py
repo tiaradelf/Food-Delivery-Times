@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, classification_report
 
 # ===============================
-# 🛠️ Page Config - WAJIB PALING ATAS
+# 🛠️ Page Config
 # ===============================
 st.set_page_config(page_title="Prediksi Kategori Pengiriman Makanan", layout="wide")
 
@@ -20,17 +20,26 @@ st.set_page_config(page_title="Prediksi Kategori Pengiriman Makanan", layout="wi
 # ===============================
 @st.cache_data
 def load_and_preprocess_data():
-    df = pd.read_csv("Food_Delivery_Times.csv")
+    try:
+        df = pd.read_csv("Food_Delivery_Times.csv", encoding='utf-8')
+    except UnicodeDecodeError:
+        df = pd.read_csv("Food_Delivery_Times.csv", encoding='latin1')
 
-    # Drop kolom Order_ID
+    # Bersihkan karakter tidak valid
+    for col in df.select_dtypes(include='object').columns:
+        df[col] = df[col].apply(lambda x: x.encode('utf-8', 'ignore').decode('utf-8') if isinstance(x, str) else x)
+
+    # Hapus baris dengan nilai NaN
+    df.dropna(inplace=True)
+
+    # Drop kolom Order_ID jika ada
     if 'Order_ID' in df.columns:
-        df = df.drop(columns=['Order_ID'])
+        df.drop(columns=['Order_ID'], inplace=True)
 
-    # Konversi target numerik jadi kategorikal
-    bins = [0, 20, 40, df['Delivery_Time_min'].max()]
-    labels = ['Cepat', 'Sedang', 'Lama']
-    df['Delivery_Category'] = pd.cut(df['Delivery_Time_min'], bins=bins, labels=labels, include_lowest=True)
+    # Buat label klasifikasi berdasarkan waktu pengiriman
+    df['Delivery_Category'] = df['Delivery_Time_min'].apply(lambda x: 'Cepat' if x < 45 else 'Lama')
 
+    # Feature dan Target
     X = df.drop(columns=['Delivery_Time_min', 'Delivery_Category'])
     y = df['Delivery_Category']
 
@@ -43,6 +52,7 @@ def load_and_preprocess_data():
 
     return df, X_encoded, X_scaled, y, scaler, X.columns.tolist(), X_encoded.columns.tolist()
 
+# Load data
 df, X_encoded, X_scaled, y, scaler, original_features, model_features = load_and_preprocess_data()
 
 # ===============================
@@ -67,7 +77,7 @@ if menu == "📊 EDA":
     st.dataframe(df.head())
 
     st.subheader("🔗 Korelasi Numerik")
-    plt.figure(figsize=(10,6))
+    plt.figure(figsize=(10, 6))
     sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="YlGnBu")
     st.pyplot(plt.gcf())
 
@@ -95,7 +105,6 @@ elif menu == "🔮 Prediksi":
             mean_val = float(df[col].mean())
             input_data[col] = st.number_input(col, value=mean_val, min_value=min_val, max_value=max_val)
 
-    # Proses input user
     input_df = pd.DataFrame([input_data])
     input_encoded = pd.get_dummies(input_df)
     input_encoded = input_encoded.reindex(columns=model_features, fill_value=0)
@@ -113,18 +122,14 @@ elif menu == "🔮 Prediksi":
         st.text(classification_report(y_test, y_pred_test))
 
 # ===============================
-# 📬 Kontak & Penutup
+# 📬 Kontak
 # ===============================
 elif menu == "📬 Contact":
-    st.title("📬 Contact dan Penghargaan")
+    st.title("📬 Contact Me")
 
-    st.write("Hubungi saya melalui:")
-    st.markdown(
-        "[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue)](https://www.linkedin.com/in/tiara-delfira/)"
-    )
-    st.markdown(
-        "[![GitHub](https://img.shields.io/badge/GitHub-Profile-black)](https://github.com/tiaradelf)"
-    )
+    st.write("Untuk pertanyaan, kolaborasi, atau feedback, silakan hubungi:")
+    st.markdown("[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue)](https://www.linkedin.com/in/tiara-delfira/)")
+    st.markdown("[![GitHub](https://img.shields.io/badge/GitHub-Profile-black)](https://github.com/tiaradelf)")
     st.write("📧 Email: delfiratiara7@gmail.com")
 
     st.divider()
@@ -132,7 +137,7 @@ elif menu == "📬 Contact":
     st.markdown("""
     <div style='text-align: center; font-size: 18px; margin-top: 20px;'>
         🌟 Terima kasih telah mengeksplorasi Project Data Science ini! 🌟<br>
-        Semoga hasil analisis dan insight yang diberikan dapat bermanfaat dalam pengambilan keputusan bisnis yang lebih baik.
+        Semoga hasil EDA dan Prediksi yang diberikan dapat bermanfaat dalam pengambilan keputusan bisnis yang lebih baik.
     </div>
     """, unsafe_allow_html=True)
 
@@ -145,7 +150,10 @@ elif menu == "📬 Contact":
         st.image(image, caption="Terima kasih telah menjelajahi streamlit ini!", use_container_width=True)
     else:
         st.warning("❗ Gambar 'ucapan.jpg' tidak ditemukan. Pastikan file berada di direktori yang sama.")
-# ========== Credit di Footer ==========
+
+# ===============================
+# 🔻 Footer
+# ===============================
 st.markdown(
     """
     <hr>
