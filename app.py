@@ -115,8 +115,8 @@ elif menu == "🔮 Prediksi":
 # ===============================
 # 📬 Kontak & Penutup
 # ===============================
-elif menu == "📬 Kontak":
-    st.title("📬 Kontak dan Penghargaan")
+elif menu == "📬 Contact":
+    st.title("📬 Contact dan Penghargaan")
 
     st.write("Hubungi saya melalui:")
     st.markdown(
