@@ -73,17 +73,18 @@ menu = st.sidebar.radio("Navigation", ["📊 EDA", "🔮 Prediksi", "📬 Contac
 if menu == "📊 EDA":
     st.title("📊 Exploratory Data Analysis (EDA)")
 
-    st.subheader("🔍 5 Data Teratas")
-    st.dataframe(df.head())
+    selected_eda_cols = ['Distance_km', 'Preparation_Time_min', 'Courier_Experience_yrs']
 
-    st.subheader("🔗 Korelasi Numerik")
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(df.corr(numeric_only=True), annot=True, cmap="YlGnBu")
+    st.subheader("🔍 5 Data Teratas (Terpilih)")
+    st.dataframe(df[selected_eda_cols].head())
+
+    st.subheader("🔗 Korelasi Antar Fitur Terpilih")
+    plt.figure(figsize=(8, 5))
+    sns.heatmap(df[selected_eda_cols].corr(), annot=True, cmap="YlGnBu")
     st.pyplot(plt.gcf())
 
-    st.subheader("📈 Histogram Kolom Numerik")
-    numeric_cols = df.select_dtypes(include='number').columns.tolist()
-    selected_col = st.selectbox("Pilih Kolom:", numeric_cols)
+    st.subheader("📈 Histogram Kolom Terpilih")
+    selected_col = st.selectbox("Pilih Kolom:", selected_eda_cols)
     fig, ax = plt.subplots()
     sns.histplot(df[selected_col], kde=True, ax=ax)
     st.pyplot(fig)
