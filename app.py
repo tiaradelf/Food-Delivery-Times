@@ -55,7 +55,7 @@ model.fit(X_train, y_train)
 # ===============================
 # 3. Sidebar Navigasi
 # ===============================
-menu = st.sidebar.radio("Navigasi", ["📊 EDA", "🔮 Prediksi", "📬 Kontak"])
+menu = st.sidebar.radio("Navigation", ["📊 EDA", "🔮 Prediksi", "📬 Contact"])
 
 # ===============================
 # 📊 EDA
